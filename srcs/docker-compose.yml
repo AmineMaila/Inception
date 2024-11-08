@@ -1,0 +1,25 @@
+
+volumes:
+  mariadb:
+    name: wp-db
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ~/data/wp-db
+
+networks:
+  inception:
+    name: mmailanet
+
+services:
+  mariadb:
+    image: mariadb:mmaila
+    container_name: mdb
+    build: ./requirments/mariadb
+    env_file: .env
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception
+    restart: always
