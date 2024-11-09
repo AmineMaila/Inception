@@ -2,9 +2,9 @@
 all: up
 
 up:
-	@mkdir -p /home/mmaila/data/wp-db
-	@mkdir -p /home/mmaila/data/wp-files
-	docker compose -f ./srcs/docker-compose.yml up
+	@mkdir -p ~/data/wp-db
+	@mkdir -p ~/data/wp-files
+	docker compose -f ./srcs/docker-compose.yml up -d
 
 down:
 	docker compose -f ./srcs/docker-compose.yml down

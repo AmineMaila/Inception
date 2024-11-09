@@ -1,7 +1,30 @@
 
+services:
+  mariadb:
+    build: ./requirments/mariadb
+    image: mariadb
+    container_name: mdb
+    env_file: .env
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception
+    restart: always
+  nginx:
+    image: nginx
+    container_name: nginx
+    env_file: .env
+    ports:
+      - 9000:9000
+    networks:
+      - inception
+    restart: always
+
 volumes:
   mariadb:
-    name: wp-db
+    name: mariadb
     driver: local
     driver_opts:
       o: bind
@@ -11,15 +34,3 @@ volumes:
 networks:
   inception:
     name: mmailanet
-
-services:
-  mariadb:
-    image: mariadb:mmaila
-    container_name: mdb
-    build: ./requirments/mariadb
-    env_file: .env
-    volumes:
-      - mariadb:/var/lib/mysql
-    networks:
-      - inception
-    restart: always
