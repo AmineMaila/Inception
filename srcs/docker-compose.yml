@@ -13,23 +13,33 @@ services:
       - inception
     restart: always
   nginx:
+    build: ./requirments/nginx
     image: nginx
     container_name: nginx
     env_file: .env
+    volumes:
+      - wordpress:/var/www/html
     ports:
-      - 9000:9000
+      - 443:443
     networks:
       - inception
     restart: always
 
 volumes:
   mariadb:
-    name: mariadb
+    name: wp-db
     driver: local
     driver_opts:
       o: bind
       type: none
       device: ~/data/wp-db
+  wordpress:
+    name: wp-files
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ~/data/wp-files
 
 networks:
   inception:
