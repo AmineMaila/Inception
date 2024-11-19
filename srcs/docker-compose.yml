@@ -14,12 +14,15 @@ services:
     env_file: .env
     build: ./requirments/nginx
     image: nginx:v1
-    container_name: nginx
+    container_name: ngnx
+    ports:
+      - 443:443
     volumes:
       - wordpress:/var/www/html
     networks:
       - inception
     restart: always
+
   wordpress:
     depends_on:
       - mariadb
@@ -32,6 +35,10 @@ services:
     networks:
       - inception
     restart: always
+
+networks:
+  inception:
+    name: mmailanet
 
 volumes:
   mariadb:
@@ -48,7 +55,3 @@ volumes:
       o: bind
       type: none
       device: ~/data/wp-files
-
-networks:
-  inception:
-    name: mmailanet
