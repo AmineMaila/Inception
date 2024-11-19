@@ -1,26 +1,34 @@
 
 services:
   mariadb:
-    build: ./requirments/mariadb
-    image: mariadb
-    container_name: mdb
     env_file: .env
-    ports:
-      - 3306:3306
+    build: ./requirments/mariadb
+    image: mariadb:v1
+    container_name: mdb
     volumes:
       - mariadb:/var/lib/mysql
     networks:
       - inception
     restart: always
   nginx:
-    build: ./requirments/nginx
-    image: nginx
-    container_name: nginx
     env_file: .env
+    build: ./requirments/nginx
+    image: nginx:v1
+    container_name: nginx
     volumes:
       - wordpress:/var/www/html
-    ports:
-      - 443:443
+    networks:
+      - inception
+    restart: always
+  wordpress:
+    depends_on:
+      - mariadb
+    env_file: .env
+    build: ./requirments/wordpress
+    image: wordpress:v1
+    container_name: wp
+    volumes:
+      - wordpress:/var/www/html
     networks:
       - inception
     restart: always
