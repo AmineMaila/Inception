@@ -20,6 +20,12 @@ wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN_NAME
 
 wp user create $WP_USER_NAME $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD --role=editor --allow-root
 
+wp config set WP_CACHE true
+
+wp config set WP_REDIS_HOST rds
+
+wp config set WP_REDIS_PORT 6379
+
 mkdir -p /run/php
 
 export PHP_FPM=$(ls /usr/sbin | grep php-fpm)

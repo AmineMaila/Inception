@@ -36,6 +36,16 @@ services:
       - inception
     restart: always
 
+  redis:
+    build: ./requirements/bonus/redis
+    image: redis:v1
+    container_name: rds
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception
+    restart: always
+
 networks:
   inception:
     name: mmailanet
