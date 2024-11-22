@@ -2,9 +2,8 @@ FROM debian:bullseye
 
 RUN apt-get update -y && apt-get install -y mariadb-server
 
-COPY ./conf/ /conf
-
-WORKDIR /conf
+COPY ./conf/50-server /
+COPY ./tools/mariadb.sh /
 
 RUN chmod +x mariadb.sh
 
