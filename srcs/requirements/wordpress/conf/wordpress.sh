@@ -1,8 +1,14 @@
 #!/bin/bash
 
+sleep 10
+
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chmod +x wp-cli.phar
+
+chmod -R 775 /var/www/html
+
+chown -R www-data:www-data /var/www/html
 
 echo "listen = 9000" >> /etc/php/7.4/fpm/pool.d/www.conf
 
@@ -20,14 +26,16 @@ wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN_NAME
 
 wp user create $WP_USER_NAME $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD --role=editor --allow-root
 
-wp config set WP_CACHE true
+wp config set WP_CACHE true --allow-root
 
-wp config set WP_REDIS_HOST rds
+wp config set WP_REDIS_HOST rds --allow-root
 
-wp config set WP_REDIS_PORT 6379
+wp config set WP_REDIS_PORT 6379 --allow-root
+
+wp plugin install redis-cache --activate --allow-root
+
+wp redis enable --allow-root
 
 mkdir -p /run/php
 
-export PHP_FPM=$(ls /usr/sbin | grep php-fpm)
-
-$PHP_FPM -F
+php-fpm7.4 -F

@@ -15,9 +15,6 @@ stop:
 rmv:
 	echo "amine" | sudo rm -rf ~/data/*
 
-rm:
-	docker compose -f ./srcs/docker-compose.yml rm -f
-
 logs:
 	docker compose -f ./srcs/docker-compose.yml logs
 
