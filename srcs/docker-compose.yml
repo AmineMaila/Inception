@@ -40,6 +40,8 @@ services:
     build: ./requirements/bonus/redis
     image: redis:v1
     container_name: rds
+    # volumes:
+    #   - wordpress:/var/www/html
     networks:
       - inception
     restart: always
@@ -52,6 +54,16 @@ services:
       - inception
     ports:
       - 8081:8080
+    restart: always
+
+  static-website:
+    build: ./requirements/bonus/static-website
+    image: static-website:v1
+    container_name: web
+    networks:
+      - inception
+    ports:
+      - 8082:8080
     restart: always
 
 networks:

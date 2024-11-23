@@ -1,7 +1,5 @@
 #!/bin/bash
 
-mv ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-
 service mariadb start
 sleep 5
 
@@ -12,4 +10,4 @@ mariadb -e "FLUSH PRIVILEGES;"
 
 mysqladmin shutdown
 
-mysqld_safe
+mysqld_safe --bind-address=0.0.0.0
