@@ -75,6 +75,7 @@ services:
       - wordpress:/wp
     ports:
       - "21:21"
+      - "10000-10100:10000-10100"
     restart: always
 
 networks:
