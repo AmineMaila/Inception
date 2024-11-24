@@ -4,7 +4,7 @@ all: up
 up:
 	@mkdir -p ~/data/wp-db
 	@mkdir -p ~/data/wp-files
-	docker compose -f ./srcs/docker-compose.yml up --build -d
+	docker compose -f ./srcs/docker-compose.yml up --build
 
 down:
 	docker compose -f ./srcs/docker-compose.yml down
