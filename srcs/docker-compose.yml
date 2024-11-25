@@ -78,6 +78,20 @@ services:
       - "10000-10100:10000-10100"
     restart: always
 
+  portainer:
+    build: ./requirements/bonus/portainer
+    image: portainer:v1
+    container_name: prt
+    env_file: .env
+    volumes:
+      - portainer:/port-data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - inception
+    ports:
+      - 4242:4242
+    restart: always
+
 networks:
   inception:
     name: mmailanet
@@ -97,3 +111,10 @@ volumes:
       o: bind
       type: none
       device: ~/data/wp-files
+  portainer:
+    name: port-data
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ~/data/port-data
