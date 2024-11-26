@@ -6,15 +6,9 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 
 chmod +x wp-cli.phar
 
-chmod -R 775 /var/www/html
-
-chown -R www-data:www-data /var/www/html
-
-echo "listen = 9000" >> /etc/php/7.4/fpm/pool.d/www.conf
-
 mv wp-cli.phar /usr/local/bin/wp
 
-mkdir -p /var/www/html
+echo "listen = 9000" >> /etc/php/7.4/fpm/pool.d/www.conf
 
 cd /var/www/html
 
@@ -37,5 +31,9 @@ wp plugin install redis-cache --activate --allow-root
 wp redis enable --allow-root
 
 mkdir -p /run/php
+
+chmod -R 775 /var/www/html
+
+chown -R www-data:www-data /var/www/html
 
 php-fpm7.4 -F
