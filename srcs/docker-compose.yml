@@ -11,6 +11,8 @@ services:
       - inception
     restart: always
   nginx:
+    depends_on:
+      - wordpress
     env_file: .env
     build: ./requirements/nginx
     image: nginx:v1
