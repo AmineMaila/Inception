@@ -103,20 +103,17 @@ volumes:
     name: wp-db
     driver: local
     driver_opts:
-      o: bind
-      type: none
+      type: bind
       device: ~/data/wp-db
   wordpress:
     name: wp-files
     driver: local
     driver_opts:
-      o: bind
-      type: none
+      type: bind
       device: ~/data/wp-files
   portainer:
     name: port-data
     driver: local
     driver_opts:
-      o: bind
-      type: none
+      type: bind
       device: ~/data/port-data
